@@ -1,0 +1,57 @@
+{% extends "minerve/pages/single_modal/index.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load django_bootstrap5 %}
+
+{% block MINERVE_SINGLE_MODAL %}
+    <div class="container">
+    <div class="col">
+    <div class="d-inline-flex p-2 justify-content-center">
+    <div class="setup-logo-small loop text-center">
+    {% include "brane/logo/svg/animated/brane_logo.svg" %}
+    </div>
+    </div>
+    <div class="col">
+    <h1 class="h3 mb-3 fw-normal">{% translate "Brane" %} {% translate "Setup" %} </h1>
+    <p>
+        {% blocktranslate %}
+            Setup is in progress! Please don't navigate away from this page.
+        {% endblocktranslate %}
+    </p>
+    <div class="col">
+        <div class="progress" role="progressbar" aria-label="Setup Installation Progress" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" id="setup_pbar" style="width: 0">0%</div>
+        </div>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col">
+        <code id="setup_code">
+
+        </code>
+    </div>
+    <div class="alert alert-danger" role="alert" id="error_message">
+        <i class="fa-solid fa-circle-exclamation"></i> <span>Something went wrong!</span>
+    </div>
+    </div>
+    <form id="create_pod_form" data-post-url="create/start">
+    <input type="hidden" id="cidr" value="{{ cidr }}"/>
+    <input type="hidden" id="pgpasswd" value="{{ pgpasswd }}"/>
+    <input type="hidden" id="pgdata" value="{{ pgdata }}"/>
+    <input type="hidden" id="ctrlport" value="{{ ctrlport }}"/>
+    {% csrf_token %}
+    </form>
+
+{% endblock %}
+
+{% block MINERVE_PAGE_FOOTER %}
+    {% include "minerve/components/dashboard/toasts.html" %}
+    <link rel="stylesheet" href="/static/brane/css/global/logo/animated/brane_logo.css"/>
+    <script type="module" src="/static/setup/js/loader.js">
+    <script>
+    $(window.document).ready(function() {
+        $("#svg1").addClass("active");
+    });
+    </script>
+
+{% endblock %}

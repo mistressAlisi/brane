@@ -1,0 +1,39 @@
+{% extends "minerve/pages/single_modal/index.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load django_bootstrap5 %}
+
+{% block MINERVE_SINGLE_MODAL %}
+    <div class="container">
+    <div class="col">
+    <div class="d-inline-flex p-2 justify-content-center">
+    <div class="setup-logo-small text-center">
+    {% include "brane/logo/svg/animated/brane_logo.svg" %}
+    </div>
+    </div>
+    <div class="col">
+    <h1 class="h3 mb-3 fw-normal">{% translate "Brane" %} {% translate "Setup" %} </h1>
+    <p>
+        {% blocktranslate %}
+            Please confirm the parameters for database creation below:
+        {% endblocktranslate %}
+    </p>
+    </div>
+    <div class="col">
+     <form method="POST" action="/create/execute">
+    {% csrf_token %}
+        {% crispy create_form %}
+    </form>
+    </div>
+
+{% endblock %}
+
+{% block MINERVE_PAGE_FOOTER %}
+    <link rel="stylesheet" href="/static/brane/css/global/logo/animated/brane_logo.css"/>
+    <script>
+    $(window.document).ready(function() {
+        $("#svg1").addClass("active");
+    });
+    </script>
+
+{% endblock %}

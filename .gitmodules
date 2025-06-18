@@ -1,0 +1,6 @@
+[submodule "minerve"]
+	path = minerve
+	url = git@github.com:mistressAlisi/minerve.git
+[submodule "brane/minerve"]
+	path = brane/minerve
+	url = git@github.com:mistressAlisi/minerve.git
